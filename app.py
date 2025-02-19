@@ -3,8 +3,8 @@ from flask_cors import CORS
 from routes.plants import plants_bp
 from routes.users import users_bp
 from routes.orders import orders_bp
-from main.config import Config
-from main.database import mongo
+from config import Config
+from database import mongo
 
 app = Flask(__name__)
 app.config.from_object(Config)
