@@ -1,5 +1,9 @@
-import os
+from pymongo import MongoClient
 
-class Config:
-    SECRET_KEY = "your_secret_key"
-    MONGO_URI = "mongodb://localhost:27017/nature_nest"
+# MongoDB Connection URI
+MONGO_URI = "mongodb://localhost:27017/"
+DB_NAME = "nature_nest"
+
+# Establish connection
+client = MongoClient(MONGO_URI)
+db = client[DB_NAME]
