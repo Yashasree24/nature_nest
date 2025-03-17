@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>User Dashboard</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="plants.html">Plant Catalog</a></li>
+                <li><a href="dashboard.html">My Profile</a></li>
+                <li><a href="orders.html">My Orders</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section id="profile-section">
+        <h2>My Profile</h2>
+        <form id="profile-form">
+            <label>Name:</label>
+            <input type="text" id="name" required>
+            <br><br>
+            <label>Email:</label>
+            <input type="email" id="email" disabled>
+            <br><br>
+            <label>Address:</label>
+            <input type="text" id="address">
+            <br><br>
+            <label>New Password:</label>
+            <input type="password" id="password">
+            <br><br>
+            <button type="submit">Update Profile</button>
+        </form>
+    </section>
+
+    <section id="order-history">
+        <h2>My Orders</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Order ID &nbsp;&nbsp;</th><hr>
+                    <th>Plant &nbsp;&nbsp;</th>&nbsp;&nbsp;
+                    <th>Quantity &nbsp;&nbsp;</th>&nbsp;&nbsp;
+                    <th>Status &nbsp;&nbsp;</th>&nbsp;&nbsp;
+                </tr>
+            </thead>
+            <tbody id="orders-table">
+            </tbody>
+        </table>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 Nature Nest. All rights reserved.</p>
+    </footer>
+
+    <script src="dashboard.js"></script>
+</body>
+</html>

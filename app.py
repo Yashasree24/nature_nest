@@ -4,22 +4,21 @@ from flask_jwt_extended import JWTManager
 from routes.plants import plants_bp
 from routes.users import users_bp
 from routes.orders import orders_bp
-from config import Config
-from database import mongo
+from routes.payments import payments_bp
+from config.config import Config
+from database.database import insert_sample_plants
 
 app = Flask(__name__)
-app.config.from_object(Config)
+app.config["JWT_SECRET_KEY"] = "supersecretkey"
 
-CORS(app)  # Enable CORS
-mongo.init_app(app)  # Initialize MongoDB
+CORS(app)
+JWTManager(app)
+insert_sample_plants()
 
-app.config["JWT_SECRET_KEY"] = "your_secret_key_here"  # Change this to a secure secret key
-jwt = JWTManager(app)  # Initialize JWT
-
-# Register blueprints
 app.register_blueprint(plants_bp, url_prefix='/api/plants')
 app.register_blueprint(users_bp, url_prefix='/api/users')
 app.register_blueprint(orders_bp, url_prefix='/api/orders')
+app.register_blueprint(payments_bp, url_prefix='/api/payments')
 
 @app.route('/')
 def home():

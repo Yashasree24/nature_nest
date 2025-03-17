@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment - Nature Nest</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="payment-container">
+        <h2>Choose Payment Method</h2>
+        
+        <select id="payment-method">
+            <option value="PhonePe">PhonePe</option>
+            <option value="Paytm">Paytm</option>
+            <option value="GooglePay">Google Pay</option>
+            <option value="PayPal">PayPal</option>
+        </select>
+
+        <button onclick="processPayment()">Pay Now</button>
+        <p id="payment-status"></p>
+    </div>
+
+    <script>
+        function processPayment() {
+            let method = document.getElementById("payment-method").value;
+
+            fetch("http://localhost:5000/api/payments/process", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ method: method })
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById("payment-status").innerText = data.message;
+            })
+            .catch(error => {
+                document.getElementById("payment-status").innerText = "Payment failed. Try again.";
+            });
+        }
+    </script>
+</body>
+</html>

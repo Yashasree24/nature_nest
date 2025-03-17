@@ -8,11 +8,7 @@ def insert_sample_plants():
     sample_plants = [
         {
             "name": "Aloe Vera",
-            "type": "Medicinal",
-            "sunlight": "Partial",
-            "water": "Low",
-            "soil": "Sandy",
-            "size": "Small",
+            "category": "Medicinal",
             "price": 5,
             "image_url": "/images/aloe.jpg",
             "stock": 20,
@@ -20,11 +16,7 @@ def insert_sample_plants():
         },
         {
             "name": "Rose",
-            "type": "Flowering",
-            "sunlight": "Full",
-            "water": "Moderate",
-            "soil": "Loamy",
-            "size": "Medium",
+            "category": "Flowering",
             "price": 10,
             "image_url": "/images/rose.jpg",
             "stock": 15,
