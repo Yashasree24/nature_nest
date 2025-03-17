@@ -2,6 +2,26 @@ document.addEventListener("DOMContentLoaded", () => {
     console.log("Nature Nest website loaded!");
 });
 // Fetch plants from Flask API and display them on the page
+async function loginUser(email, password) {
+    try {
+        let response = await fetch("http://127.0.0.1:5000/api/users/login", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ email, password })
+        });
+
+        let result = await response.json();
+        if (response.ok) {
+            localStorage.setItem("token", result.token); // Store token
+            alert("Login successful!");
+        } else {
+            alert(result.error);
+        }
+    } catch (error) {
+        console.error("Login failed:", error);
+    }
+}
+
 async function fetchPlants() {
     try {
         let response = await fetch("http://127.0.0.1:5000/api/plants"); // Adjust the API route
@@ -28,18 +48,33 @@ async function fetchPlants() {
 
 // Call the function when the page loads
 document.addEventListener("DOMContentLoaded", fetchPlants);
-async function placeOrder(plantId, quantity) {
+async function placeOrder(plantId, plantName, quantity) {
     try {
-        let response = await fetch("http://127.0.0.1:5000/api/orders", {
+        let token = localStorage.getItem("token");
+        if (!token) {
+            alert("Please log in to place an order.");
+            return;
+        }
+
+        let response = await fetch("http://127.0.0.1:5000/api/orders/place", {
             method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ plant_id: plantId, quantity: quantity })
+            headers: { 
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}`
+            },
+            body: JSON.stringify({ plant_id: plantId, quantity: quantity, address: "User Address" })
         });
 
         let result = await response.json();
-        alert(result.message); // Show success message
+        if (response.ok) {
+            // Redirect to order confirmation page with order details
+            window.location.href = `order-confirmation.html?order_id=${result.order_id}&plant_name=${plantName}&quantity=${quantity}`;
+        } else {
+            alert(result.error);
+        }
     } catch (error) {
         console.error("Order failed:", error);
     }
 }
+
 
